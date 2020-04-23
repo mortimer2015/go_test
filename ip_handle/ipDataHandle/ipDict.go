@@ -12,8 +12,9 @@ type IpData struct {
 	Describe string
 }
 
-func IpDataHandle(fileName string) []IpData {
+func IpDict(fileName string) ([]int, []IpData) {
 	var ret []IpData
+	var ipList []int
 	f, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		fmt.Println(err)
@@ -29,15 +30,17 @@ func IpDataHandle(fileName string) []IpData {
 			}
 		}
 		if len(lineNew) > 2 {
+			ipStart := ip2intNoError(lineNew[0])
 			one := IpData{
-				Start:    ip2intNoError(lineNew[0]),
+				Start:    ipStart,
 				Stop:     ip2intNoError(lineNew[1]),
 				Describe: strings.Join(lineNew[2:], " "),
 			}
 			ret = append(ret, one)
+			ipList = append(ipList, ipStart)
 		}
 	}
-	return ret
+	return ipList, ret
 }
 
 func ip2intNoError(ipData string) int {

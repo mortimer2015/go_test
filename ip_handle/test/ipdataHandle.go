@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
-	data := ipDataHandle.IpDataHandle("file/ipdata.txt")
+	data1, data := ipDataHandle.IpDict("file/ipdata.txt")
+	fmt.Println(data1)
 	fmt.Println(data)
 }
