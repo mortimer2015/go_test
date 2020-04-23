@@ -1,4 +1,4 @@
-package ip2int
+package ipDataHandle
 
 import (
 	"errors"
@@ -17,8 +17,8 @@ func Ip2int(ip string) (int, error) {
 		if err != nil {
 			return ret, errors.New("ip数据格式错误")
 		}
-		intSlice = intSlice << (8 * i)
-		ret = ret | intSlice
+		ret = ret<<8 + intSlice
+		//ret = ret + intSlice
 	}
 	return ret, nil
 }
