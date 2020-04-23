@@ -2,6 +2,7 @@ package ipDataHandle
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -21,4 +22,12 @@ func Ip2int(ip string) (int, error) {
 		ret = ret + intSlice
 	}
 	return ret, nil
+}
+
+func ip2intNoError(ipData string) int {
+	ipInt, err := Ip2int(ipData)
+	if err != nil {
+		fmt.Printf("%s  %s", ipData, err.Error())
+	}
+	return ipInt
 }

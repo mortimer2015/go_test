@@ -30,10 +30,17 @@ func IpDict(fileName string) ([]int, []IpData) {
 			}
 		}
 		if len(lineNew) > 2 {
-			ipStart := ip2intNoError(lineNew[0])
+			ipStart, err := Ip2int(lineNew[0])
+			if err != nil {
+				continue
+			}
+			ipStop, err := Ip2int(lineNew[1])
+			if err != nil {
+				continue
+			}
 			one := IpData{
 				Start:    ipStart,
-				Stop:     ip2intNoError(lineNew[1]),
+				Stop:     ipStop,
 				Describe: strings.Join(lineNew[2:], " "),
 			}
 			ret = append(ret, one)
@@ -41,12 +48,4 @@ func IpDict(fileName string) ([]int, []IpData) {
 		}
 	}
 	return ipList, ret
-}
-
-func ip2intNoError(ipData string) int {
-	ipInt, err := Ip2int(ipData)
-	if err != nil {
-		fmt.Printf("%s  %s", ipData, err.Error())
-	}
-	return ipInt
 }
